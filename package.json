@@ -1,0 +1,15 @@
+{
+  "name": "hamu",
+  "private": true,
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/joenix/hamu.git",
+  "author": "Joenix <joenix.com@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "dev": "http-server -p 9000"
+  },
+  "dependencies": {
+    "cos-js-sdk-v5": "^1.8.3"
+  }
+}
