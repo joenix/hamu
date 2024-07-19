@@ -22,6 +22,9 @@ new Vue({
       // 移除 Preload 蒙版
       this.preloader = false;
 
+      // 获取二维码
+      this.createQR();
+
       // 重置状态
       this.reset();
     },
