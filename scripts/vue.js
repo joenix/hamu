@@ -101,6 +101,8 @@ new Vue({
       // 回跳
       const qrcode = `https://open.weixin.qq.com/connect/qrconnect?appid=${this.appid}&redirect_uri=${this.redirect}&response_type=code&scope=snsapi_login&state=${this.state}#wechat_redirect`;
 
+      console.log('qrcode', qrcode);
+
       // 配置
       this.qrImage = `https://api.qrserver.com/v1/create-qr-code/?data=${encodeURIComponent(qrcode)}`;
       console.log('qrImage:', this.qrImage);
