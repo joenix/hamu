@@ -8,7 +8,13 @@ new Vue({
     preloader: true,
     disable: false,
     file: null,
-    list: []
+    list: [],
+
+    appid: `wx5d458ff8b11233f0`,
+    redirect: encodeURIComponent(`http://api.hamuai.net/callback`),
+    state: `hamuai`,
+
+    qrImage: null
   },
   methods: {
     // 工程初始化函数
@@ -85,6 +91,15 @@ new Vue({
           console.log(`获取成功`, data);
         }
       );
+    },
+
+    // 生成二维码
+    createQR() {
+      // 回跳
+      const qrcode = `https://open.weixin.qq.com/connect/qrconnect?appid=${this.appid}&redirect_uri=${this.redirect}&response_type=code&scope=snsapi_login&state=${this.state}#wechat_redirect`;
+
+      // 配置
+      this.qrImage = `https://api.qrserver.com/v1/create-qr-code/?data=${encodeURIComponent(qrcode)}`;
     }
   },
 
