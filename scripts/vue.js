@@ -100,6 +100,7 @@ new Vue({
 
       // 配置
       this.qrImage = `https://api.qrserver.com/v1/create-qr-code/?data=${encodeURIComponent(qrcode)}`;
+      console.log('qrImage:', this.qrImage);
     }
   },
 
