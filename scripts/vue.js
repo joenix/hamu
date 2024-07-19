@@ -98,6 +98,10 @@ new Vue({
 
     // 生成二维码
     createQR() {
+      console.log('appid:', this.appid);
+      console.log('redirect:', this.redirect);
+      console.log('state:', this.state);
+
       // 回跳
       const qrcode = `https://open.weixin.qq.com/connect/qrconnect?appid=${this.appid}&redirect_uri=${this.redirect}&response_type=code&scope=snsapi_login&state=${this.state}#wechat_redirect`;
 
