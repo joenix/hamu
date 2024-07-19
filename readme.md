@@ -59,4 +59,11 @@ hamuai
 
 # 公众号 消息加密秘钥 EncodingAESKey
 Y5v0EOWHkdXJA1BNJz9UlMOrV4WSbFpeFkfbtGTNjqU
+
+# 查杀端口
+sudo lsof -i :7086
+
+# KOA
+start: pm2 start app.js --name hamuai-app
+stop: pm2 stop hamuai-app
 ```
