@@ -11,7 +11,7 @@ new Vue({
     list: [],
 
     appid: `wx5d458ff8b11233f0`,
-    redirect: encodeURIComponent(`http://wechat.hamuai.net/callback`),
+    redirect: encodeURIComponent(`https://wechat.hamuai.net/callback`),
     state: `hamuai`,
 
     qrImage: null
