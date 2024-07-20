@@ -138,8 +138,40 @@ h6 {
 .mission-batch {
   margin-bottom: 10px;
   bottom: 100%;
+  left: 0;
+  position: absolute;
+}
+.mission-mode {
+  margin-bottom: 10px;
+  bottom: 100%;
   right: 0;
   position: absolute;
+
+  display: flex;
+  justify-content: center;
+
+  overflow: hidden;
+  background-color: white;
+  border-radius: 8px;
+  border: 1px solid #eaebec;
+}
+.mission-mode span:hover {
+  background-color: #f4f5f6;
+}
+.mission-mode span {
+  display: inline-block;
+  text-align: center;
+  vertical-align: middle;
+  width: 36px;
+  height: 36px;
+  padding: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.mission-mode span.active {
+  color: var(--contrast-color);
+  background-color: var(--accent-color);
 }
 .mission-item {
   flex: 1 0 20%;
@@ -175,6 +207,34 @@ h6 {
 }
 .mission-operate a {
   display: inline-block;
+}
+
+/* Another Mode */
+.mission.mode {
+  display: block;
+}
+.mission.mode .mission-item {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 20px;
+}
+.mission.mode .mission-choose {
+  position: static;
+}
+.mission.mode .mission-cover {
+  width: 200px;
+}
+.mission.mode .mission-operate {
+  flex-direction: column;
+  justify-content: center;
+  display: flex;
+  height: auto;
+  gap: 20px;
+}
+.mission.mode .mission-operate a {
+  width: 160px;
+  text-align: center;
 }
 
 /* PHP Email Form Messages

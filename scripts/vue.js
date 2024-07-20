@@ -10,6 +10,7 @@ new Vue({
     file: null,
     list: [],
     batch: [],
+    mode: false,
 
     appid: `wx5d458ff8b11233f0`,
     redirect: encodeURIComponent(`https://wechat.hamuai.net/callback`),
