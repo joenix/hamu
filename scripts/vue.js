@@ -78,8 +78,9 @@ new Vue({
       const name = file.Key;
 
       const response = await fetch(uri, {
+        method: 'GET',
         mode: 'cors',
-        credentials: true
+        credentials: 'include'
       });
       console.log(111, response);
 
