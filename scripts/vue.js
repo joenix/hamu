@@ -9,12 +9,18 @@ new Vue({
     disable: false,
     file: null,
     list: [],
+    batch: [],
 
     appid: `wx5d458ff8b11233f0`,
     redirect: encodeURIComponent(`https://wechat.hamuai.net/callback`),
     state: `hamuai`,
 
     qrImage: null
+  },
+  computed: {
+    batching() {
+      return this.batch.filter((value) => value !== false);
+    }
   },
   methods: {
     // 工程初始化函数
@@ -27,6 +33,63 @@ new Vue({
 
       // 重置状态
       this.reset();
+    },
+
+    // 格式化时间
+    format(time) {
+      const options = {
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        hour12: false,
+        timeZone: 'UTC'
+      };
+
+      // 转换为数组并重新排序
+      const [day, month, year, hour, minute, second] = new Intl.DateTimeFormat('en-GB', options).format(new Date(time)).replace(',', '').replace(/\//g, '-').match(/\d+/g);
+
+      // 组装时间
+      return `${year}-${month}-${day} ${hour}:${minute}:${second}`;
+    },
+
+    // 选择视频
+    choose(e, index) {
+      this.$set(this.batch, index, !!e.target.checked);
+    },
+
+    // 批量下载
+    async download(e, count = 0) {
+      if (count >= this.list.length) {
+        return;
+      }
+
+      const file = this.batch[count] ? this.list[count] : null;
+
+      if (!file) {
+        return this.download(e, ++count);
+      }
+
+      const that = this;
+
+      const uri = `https://oss.hamuai.net/${file.Key}`;
+      const name = file.Key;
+
+      const a = document.createElement('a');
+      a.target = '_blank';
+      a.href = uri;
+      a.download = name;
+
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+
+      const out = setTimeout(() => {
+        that.download(e, ++count);
+        clearTimeout(out);
+      }, 15);
     },
 
     // 归集 COS 配置
@@ -90,7 +153,16 @@ new Vue({
             return console.error(`获取失败`, e);
           }
 
-          this.list = data.Contents.filter((file) => !/\.js$/.test(file.Key));
+          this.list = data.Contents.filter((file) => !/\.js$/.test(file.Key)).map((file) => {
+            // 格式化时间
+            file.LastModified = this.format(file.LastModified);
+
+            // 原样返回
+            return file;
+          });
+
+          this.batch = Array(this.list.length).fill(false);
+
           console.log(`获取成功`, data);
         }
       );

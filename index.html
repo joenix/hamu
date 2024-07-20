@@ -9,8 +9,8 @@
   <meta content="" name="keywords">
 
   <!-- Favicons -->
-  <link href="assets/img/favicon.png" rel="icon">
-  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+  <link href="assets/img/favicon.ico" rel="icon">
+  <link href="assets/img/favicon.ico" rel="apple-touch-icon">
 
   <!-- Vendor CSS Files -->
   <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -23,11 +23,11 @@
   <link href="assets/css/main.css" rel="stylesheet">
 
   <!-- HAMU: Upload - Code by Joenix -->
-  <script src="http://oss.hamuai.net/cos-js-sdk-v5.min.js"></script>
+  <script src="https://oss.hamuai.net/cos-js-sdk-v5.min.js"></script>
   <script type="module" src="scripts/cos.js" defer></script>
 
   <!-- HAMU: Vue - Cody by Joenix -->
-  <script src="http://oss.hamuai.net/vue2.min.js"></script>
+  <script src="https://oss.hamuai.net/vue2.min.js"></script>
   <script src="scripts/vue.js" defer></script>
 </head>
 
@@ -48,9 +48,31 @@
       <h1>文件列表：</h1>
       <ul v-if="list.length">
         <li v-for="file in list" :key="file.Key">
-          <a target="_blank" :href="`http://oss.hamuai.net/${file.Key}`">{{ file.Key }}</a>
+          <a target="_blank" :href="`https://oss.hamuai.net/${file.Key}`">{{ file.Key }}</a>
         </li>
       </ul>
+
+      <h1>任务中心：</h1>
+      <div class="mission">
+        <div class="mission-batch">
+          {{batching}}
+          1
+          {{batch}}
+          <button type="button" class="button" :disabled="!batching.length" @click="download">
+            <i class="bi-download"></i>
+            批量下载
+          </button>
+        </div>
+
+        <div class="mission-item" v-for="item, index in list" :key="item.Key">
+          <input class="mission-choose form-check-input" type="checkbox" @change="(e) => choose(e, index)">
+          <div class="mission-cover" :style="{backgroundImage: `url(https://oss.hamuai.net/${item.Key})`}"></div>
+          <div class="mission-operate">
+            <span>{{ item.LastModified }}</span>
+            <a target="_blank" class="button" :href="`https://oss.hamuai.net/${item.Key}`">下载</a>
+          </div>
+        </div>
+      </div>
     </div>
     <!-- ★★★★★★★★★★ ★★★★★ HAMU: DEMO ★★★★★ ★★★★★★★★★★ -->
 
