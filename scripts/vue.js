@@ -77,13 +77,6 @@ new Vue({
       const uri = `https://oss.hamuai.net/${file.Key}`;
       const name = file.Key;
 
-      const response = await fetch(uri, {
-        method: 'GET',
-        mode: 'cors',
-        credentials: 'include'
-      });
-      console.log(111, response);
-
       const a = document.createElement('a');
       a.target = '_blank';
       a.href = uri;
