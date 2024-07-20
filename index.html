@@ -55,9 +55,6 @@
       <h1>任务中心：</h1>
       <div class="mission">
         <div class="mission-batch">
-          {{batching}}
-          1
-          {{batch}}
           <button type="button" class="button" :disabled="!batching.length" @click="download">
             <i class="bi-download"></i>
             批量下载
@@ -65,7 +62,8 @@
         </div>
 
         <div class="mission-item" v-for="item, index in list" :key="item.Key">
-          <input class="mission-choose form-check-input" type="checkbox" @change="(e) => choose(e, index)">
+          <input class="mission-choose form-check-input" :id="`choose_${index}`" type="checkbox"
+            @change="(e) => choose(e, index)">
           <div class="mission-cover" :style="{backgroundImage: `url(https://oss.hamuai.net/${item.Key})`}"></div>
           <div class="mission-operate">
             <span>{{ item.LastModified }}</span>

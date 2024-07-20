@@ -86,6 +86,7 @@ new Vue({
       a.click();
       document.body.removeChild(a);
 
+      document.querySelector('#choose_' + count).checked = false;
       e.target.checked = false;
       this.choose(e, count);
 
