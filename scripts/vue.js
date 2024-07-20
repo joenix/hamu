@@ -86,10 +86,13 @@ new Vue({
       a.click();
       document.body.removeChild(a);
 
+      e.target.checked = false;
+      this.choose(e, count);
+
       const out = setTimeout(() => {
         that.download(e, ++count);
         clearTimeout(out);
-      }, 15);
+      }, 150);
     },
 
     // 归集 COS 配置
