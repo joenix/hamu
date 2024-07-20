@@ -155,6 +155,10 @@ h6 {
   border-width: 2px;
   border-color: color-mix(in srgb, var(--accent-color), transparent 15%);
 }
+.mission-choose:checked {
+  background-color: var(--accent-color);
+  border-color: var(--accent-color);
+}
 .mission-cover {
   height: 150px;
   margin-bottom: 10px;
