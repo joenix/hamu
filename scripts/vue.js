@@ -83,7 +83,15 @@ new Vue({
       a.download = name;
 
       document.body.appendChild(a);
-      a.click();
+      // a.click();
+
+      const event = new MouseEvent('click', {
+        ctrlKey: true, // 按住 Ctrl 键
+        bubbles: true, // 事件冒泡
+        cancelable: true // 事件是否可以被取消
+      });
+      a.dispatchEvent(event);
+
       document.body.removeChild(a);
 
       document.querySelector('#choose_' + count).checked = false;
