@@ -74,24 +74,25 @@ new Vue({
 
       const that = this;
 
-      const uri = `https://oss.hamuai.net/${file.Key}`;
-      const name = file.Key;
+      const { href } = new URL(file.Key, 'https://oss.hamuai.net');
 
       const a = document.createElement('a');
       a.target = '_blank';
-      a.href = uri;
-      a.download = name;
+      a.href = href;
+      a.download = file.Key;
 
       document.body.appendChild(a);
-      // a.click();
 
       const event = new MouseEvent('click', {
+        metaKey: true, // 按住 Command 键（在 macOS 上）
         ctrlKey: true, // 按住 Ctrl 键
         bubbles: true, // 事件冒泡
         cancelable: true // 事件是否可以被取消
       });
+
       a.dispatchEvent(event);
 
+      // Clean
       document.body.removeChild(a);
 
       document.querySelector('#choose_' + count).checked = false;
