@@ -65,7 +65,7 @@ new Vue({
 
     // 单个下载
     async download(file, callback) {
-      window.cos.getObject(
+      window.cos.getObjectUrl(
         this.coset({
           Bucket: 'hamu-1323048840',
           Region: 'ap-shanghai',
@@ -78,15 +78,9 @@ new Vue({
             return console.error(e);
           }
 
-          // Blob
-          const blob = new Blob([data.Body], { type: 'application/octet-stream' });
-
-          // Url
-          const url = URL.createObjectURL(blob);
-
           // 下载链接
           const a = document.createElement('a');
-          a.href = url;
+          a.href = data.Url;
           a.download = file.Key;
           a.style.display = 'none';
 
@@ -95,7 +89,6 @@ new Vue({
 
           // 清理
           document.body.removeChild(a);
-          URL.revokeObjectURL(url); // 释放对象 URL
 
           // 回调
           callback();
