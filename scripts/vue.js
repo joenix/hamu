@@ -65,37 +65,40 @@ new Vue({
 
     // 单个下载
     async download(file, callback) {
-      cos.getObject(
+      window.cos.getObject(
         this.coset({
           Bucket: 'hamu-1323048840',
           Region: 'ap-shanghai',
           Key: file.Key,
-          onProgress(progress) {
-            // Blob
-            const blob = new Blob([progress], { type: 'application/octet-stream' });
-
-            // Url
-            const url = URL.createObjectURL(blob);
-
-            // 下载链接
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = file.Key;
-            a.style.display = 'none';
-
-            document.body.appendChild(a);
-            a.click();
-
-            // 清理
-            document.body.removeChild(a);
-            URL.revokeObjectURL(url); // 释放对象 URL
-
-            // 回调
-            callback();
-          }
+          onProgress(progress) {}
         }),
-        (err, data) => {
-          console.log(err || data.Body);
+        (e, data) => {
+          // Error
+          if (e) {
+            return console.error(e);
+          }
+
+          // Blob
+          const blob = new Blob([data.Body], { type: 'application/octet-stream' });
+
+          // Url
+          const url = URL.createObjectURL(blob);
+
+          // 下载链接
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = file.Key;
+          a.style.display = 'none';
+
+          document.body.appendChild(a);
+          a.click();
+
+          // 清理
+          document.body.removeChild(a);
+          URL.revokeObjectURL(url); // 释放对象 URL
+
+          // 回调
+          callback();
         }
       );
     },
@@ -221,5 +224,48 @@ new Vue({
 
   mounted() {
     this.init();
+
+    // function downloadFileFromCOS(fileStream, filename) {
+    //   // 创建一个 Blob 对象
+    //   const blob = new Blob([fileStream], { type: 'application/octet-stream' });
+
+    //   // 创建一个 URL 对象
+    //   const url = URL.createObjectURL(blob);
+
+    //   // 创建一个下载链接
+    //   const a = document.createElement('a');
+    //   a.href = url;
+    //   a.download = filename; // 文件名
+    //   a.style.display = 'none';
+
+    //   // 将链接添加到文档中
+    //   document.body.appendChild(a);
+
+    //   console.log(221);
+
+    //   // 触发点击事件
+    //   a.click();
+
+    //   // 清理
+    //   document.body.removeChild(a);
+    //   URL.revokeObjectURL(url); // 释放对象 URL
+    // }
+
+    // window.cos.getObject(
+    //   this.coset({
+    //     Bucket: 'hamu-1323048840',
+    //     Region: 'ap-shanghai',
+    //     Key: 'code.png',
+    //     onProgress: function (progressData) {
+    //       console.log(JSON.stringify(progressData));
+
+    //       downloadFileFromCOS(progressData, 'filename.jpg');
+    //     }
+    //   }),
+
+    //   function (err, data) {
+    //     console.log(err || data.Body);
+    //   }
+    // );
   }
 });
