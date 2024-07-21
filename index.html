@@ -77,7 +77,7 @@
           <div class="mission-operate">
             <span v-if="mode">{{ item.Key }}</span>
             <span>{{ item.LastModified }}</span>
-            <a target="_blank" class="button" :href="`https://oss.hamuai.net/${item.Key}`">下载</a>
+            <a class="button" href="javascript:;" @click="() => download(item)">下载</a>
           </div>
         </div>
       </div>

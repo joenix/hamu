@@ -64,7 +64,7 @@ new Vue({
     //
 
     // 单个下载
-    async download(file, callback) {
+    async download(file, callback = () => {}) {
       window.cos.getObjectUrl(
         this.coset({
           Bucket: 'hamu-1323048840',
