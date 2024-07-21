@@ -61,8 +61,47 @@ new Vue({
       this.$set(this.batch, index, !!e.target.checked);
     },
 
+    //
+
+    // 单个下载
+    async download(file, callback) {
+      cos.getObject(
+        this.coset({
+          Bucket: 'hamu-1323048840',
+          Region: 'ap-shanghai',
+          Key: file.Key,
+          onProgress(progress) {
+            // Blob
+            const blob = new Blob([progress], { type: 'application/octet-stream' });
+
+            // Url
+            const url = URL.createObjectURL(blob);
+
+            // 下载链接
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = file.Key;
+            a.style.display = 'none';
+
+            document.body.appendChild(a);
+            a.click();
+
+            // 清理
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url); // 释放对象 URL
+
+            // 回调
+            callback();
+          }
+        }),
+        (err, data) => {
+          console.log(err || data.Body);
+        }
+      );
+    },
+
     // 批量下载
-    async download(e, count = 0) {
+    async batchdownload(e, count = 0) {
       if (count >= this.list.length) {
         return;
       }
@@ -70,40 +109,21 @@ new Vue({
       const file = this.batch[count] ? this.list[count] : null;
 
       if (!file) {
-        return this.download(e, ++count);
+        return this.batchdownload(e, ++count);
       }
 
       const that = this;
 
-      const { href } = new URL(file.Key, 'https://oss.hamuai.net');
+      await this.download(file, () => {
+        document.querySelector('#choose_' + count).checked = false;
+        e.target.checked = false;
+        this.choose(e, count);
 
-      const a = document.createElement('a');
-      a.target = '_blank';
-      a.href = href;
-      a.download = file.Key;
-
-      document.body.appendChild(a);
-
-      const event = new MouseEvent('click', {
-        metaKey: true, // 按住 Command 键（在 macOS 上）
-        ctrlKey: true, // 按住 Ctrl 键
-        bubbles: true, // 事件冒泡
-        cancelable: true // 事件是否可以被取消
+        var out = setTimeout(() => {
+          that.batchdownload(e, ++count);
+          clearTimeout(out);
+        }, 150);
       });
-
-      a.dispatchEvent(event);
-
-      // Clean
-      document.body.removeChild(a);
-
-      document.querySelector('#choose_' + count).checked = false;
-      e.target.checked = false;
-      this.choose(e, count);
-
-      const out = setTimeout(() => {
-        that.download(e, ++count);
-        clearTimeout(out);
-      }, 150);
     },
 
     // 归集 COS 配置
