@@ -305,7 +305,7 @@ h6 {
 }
 
 .header .logo img {
-  max-height: 36px;
+  max-height: 72px;
   margin-right: 8px;
 }
 
@@ -999,7 +999,7 @@ section,
 --------------------------------------------------------------*/
 .hero {
   width: 100%;
-  min-height: 70vh;
+  min-height: calc(100vh - 112px);
   position: relative;
   padding: 180px 0 40px 0;
   display: flex;

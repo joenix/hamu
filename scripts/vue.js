@@ -5,6 +5,14 @@
 new Vue({
   el: '#app',
   data: {
+    navigator: {
+      removal: 'AI 去字幕',
+      extraction: 'AI 提去字幕',
+      editing: 'AI 剪辑',
+      others: '其他工具',
+      aboutus: '关于我们'
+    },
+
     preloader: true,
     disable: false,
     file: null,
@@ -24,6 +32,12 @@ new Vue({
     }
   },
   methods: {
+    // 导航高亮
+    navActive(nav) {
+      console.log(nav, location.pathname);
+      return !!~location.pathname.indexOf(nav);
+    },
+
     // 工程初始化函数
     init() {
       // 移除 Preload 蒙版
