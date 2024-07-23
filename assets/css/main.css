@@ -116,6 +116,7 @@ h6 {
   flex-wrap: wrap;
   gap: 20px;
   position: relative;
+  margin-bottom: 40px;
 }
 .mission .button {
   padding: 0.25rem 1rem;
@@ -195,10 +196,22 @@ h6 {
   height: 150px;
   margin-bottom: 10px;
   border-radius: 8px;
+  overflow: hidden;
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
   background-color: #f1f2f3;
+  position: relative;
+}
+.mission-cover span {
+  padding: 0.25rem 0.5rem;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.5);
+
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
 }
 .mission-operate {
   height: 30px;
@@ -992,6 +1005,32 @@ section,
 
 .section-title p {
   margin-bottom: 0;
+}
+
+/*--------------------------------------------------------------
+# Board Section
+--------------------------------------------------------------*/
+.board {
+  margin-top: 120px;
+}
+
+.board > .board-container {
+  min-height: 555px;
+}
+
+.board h1 {
+  font-size: 24px;
+  margin-bottom: 60px;
+}
+
+.board .pagination {
+  display: flex;
+  justify-content: center;
+}
+
+.board .pagination .page-link.active {
+  background-color: var(--accent-color);
+  border-color: var(--accent-color);
 }
 
 /*--------------------------------------------------------------

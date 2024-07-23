@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>哈沐科技 - 专注AI 短剧出海</title>
+  <meta name="description" content="哈沐科技 - 专注于人工智能技术，推动短剧去字幕、提取字幕和智能剪辑。">
+  <meta name="keywords" content="AI短剧, AI去字幕, AI提取字幕, AI剪辑, 短剧出海, AI视频处理, 视频创作者工具, 人工智能, 短剧处理工具">
+
+  <!-- Favicons -->
+  <link href="assets/img/favicon.ico" rel="icon">
+  <link href="assets/img/favicon.ico" rel="apple-touch-icon">
+
+  <!-- Vendor CSS Files -->
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
+  <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+  <!-- Main CSS File -->
+  <link href="assets/css/main.css" rel="stylesheet">
+
+  <!-- HAMU: Upload - Code by Joenix -->
+  <script src="https://oss.hamuai.net/cos-js-sdk-v5.min.js"></script>
+  <script type="module" src="scripts/cos.js" defer></script>
+
+  <!-- HAMU: Vue - Cody by Joenix -->
+  <script src="https://oss.hamuai.net/vue2.min.js"></script>
+  <script src="scripts/vue.js" defer></script>
+</head>
+
+<body class="index-page">
+  <div id="app">
+
+
+    <header id="header" class="header d-flex align-items-center fixed-top">
+      <div class="container-fluid container-xl position-relative d-flex align-items-center">
+
+        <a href="index.html" class="logo d-flex align-items-center me-auto">
+          <img src="assets/img/logo.png" alt="">
+        </a>
+
+        <nav id="navmenu" class="navmenu">
+          <ul>
+            <li v-for="des, key in navigator">
+              <a :class="{active: navActive(key)}" :href="`${key}.html`">{{des}}</a>
+            </li>
+          </ul>
+          <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+        </nav>
+
+        <a class="btn-getstarted" href="index.html#about">注册</a>
+
+      </div>
+    </header>
+
+    <main class="main">
+
+      <!-- Hero Section -->
+      <section class="section board">
+        <div class="container-xl board-container">
+          <h1>任务中心：</h1>
+
+          <!-- ★★★★★★★★★★ ★★★★★ HAMU: DEMO ★★★★★ ★★★★★★★★★★ -->
+          <div class="mission" :class="{ mode }">
+            <div class="mission-mode">
+              <span :class="{ active: !mode }" @click="mode = false">
+                <i class="bi bi-ui-checks-grid"></i>
+              </span>
+              <span :class="{ active: mode }" @click="mode = true">
+                <i class="bi bi-ui-radios"></i>
+              </span>
+            </div>
+            <div class="mission-batch">
+              <button type="button" class="button" :disabled="!batching.length" @click="batchdownload">
+                <i class="bi-download"></i>
+                批量下载
+              </button>
+            </div>
+
+            <div class="mission-item" v-for="item, index in listFilter" :key="item.Key">
+              <input class="mission-choose form-check-input" :id="`choose_${index}`" type="checkbox"
+                @change="(e) => choose(e, index)">
+              <div class="mission-cover" :style="{backgroundImage: `url(https://oss.hamuai.net/${item.Key})`}">
+                <span v-if="!mode">{{ item.Key }}</span>
+              </div>
+              <div class="mission-operate">
+                <span v-if="mode">{{ item.Key }}</span>
+                <span>{{ item.LastModified }}</span>
+                <a class="button" href="javascript:;" @click="() => download(item)">下载</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- ★★★★★★★★★★ ★★★★★ HAMU: DEMO ★★★★★ ★★★★★★★★★★ -->
+        </div>
+
+        <div class="container-xl">
+          <nav aria-label="Page navigation">
+            <ul class="pagination">
+              <li class="page-item" :class="{ disabled: pagePrev }">
+                <a class="page-link" href="javascript:;" @click="manager.page--">上一页</a>
+              </li>
+              <li class="page-item" v-for="n in Array.from({length: pageMax + 1}, (v,i) => i)" :key="n">
+                <a class="page-link" :class="{active: n === manager.page}" href="javascript:;"
+                  @click="manager.page = n">{{ n + 1 }}</a>
+              </li>
+              <li class="page-item" :class="{ disabled: pageNext }">
+                <a class="page-link" href="javascript:;" @click="manager.page++">下一页</a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+
+      </section><!-- /Hero Section -->
+
+
+      <div class="container copyright text-center mt-4">
+        <p>©<span>Copyright</span> <strong class="px-1 sitename">hamuai.net</strong><span>All Rights Reserved</span>
+        </p>
+        <div class="credits">
+          沪ICP备2024071549号
+        </div>
+      </div>
+
+      </footer>
+
+      <!-- Scroll Top -->
+      <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i
+          class="bi bi-arrow-up-short"></i></a>
+
+      <!-- Preloader -->
+      <div id="preloader" v-if="preloader"></div>
+  </div>
+
+  <!-- Vendor JS Files -->
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/vendor/php-email-form/validate.js"></script>
+  <script src="assets/vendor/aos/aos.js"></script>
+  <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
+
+  <!-- Main JS File -->
+  <script src="assets/js/main.js"></script>
+</body>
+
+</html>

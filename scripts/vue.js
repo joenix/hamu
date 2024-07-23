@@ -13,6 +13,11 @@ new Vue({
       aboutus: '关于我们'
     },
 
+    manager: {
+      page: 0,
+      len: 8
+    },
+
     preloader: true,
     disable: false,
     file: null,
@@ -29,6 +34,24 @@ new Vue({
   computed: {
     batching() {
       return this.batch.filter((value) => value !== false);
+    },
+
+    listFilter() {
+      return this.list.filter((_, index) => {
+        const from = this.manager.page * this.manager.len - 1;
+        const to = from + this.manager.len;
+        return index > from && index <= to;
+      });
+    },
+
+    pageMax() {
+      return Math.ceil(this.list.length / this.manager.len) - 1;
+    },
+    pagePrev() {
+      return this.manager.page <= 0;
+    },
+    pageNext() {
+      return this.manager.page >= this.pageMax;
     }
   },
   methods: {
@@ -36,6 +59,18 @@ new Vue({
     navActive(nav) {
       console.log(nav, location.pathname);
       return !!~location.pathname.indexOf(nav);
+    },
+
+    // 管理分页
+    pagination(type) {
+      this.manager.max = Math.ceil(this.list.length / this.manager.len) - 1;
+
+      switch (type) {
+        case 'prev':
+          return this.manager.page > 0;
+        case 'next':
+          return this.manager.page >= this.manager.max;
+      }
     },
 
     // 工程初始化函数
