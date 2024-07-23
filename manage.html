@@ -83,7 +83,8 @@
             <div class="mission-item" v-for="item, index in listFilter" :key="item.Key">
               <input class="mission-choose form-check-input" :id="`choose_${index}`" type="checkbox"
                 @change="(e) => choose(e, index)">
-              <div class="mission-cover" :style="{backgroundImage: `url(https://oss.hamuai.net/${item.Key})`}">
+              <div class="mission-cover"
+                :style="{backgroundImage: `url(https://oss.hamuai.net/${item.Key}?imageView2/4/w/320/h/160/q/100)`}">
                 <span v-if="!mode">{{ item.Key }}</span>
               </div>
               <div class="mission-operate">
