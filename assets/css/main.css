@@ -216,6 +216,7 @@ h6 {
 }
 .mission-operate {
   height: 30px;
+  max-width: 320px;
   display: flex;
   justify-content: space-between;
 }
