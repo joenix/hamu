@@ -237,7 +237,6 @@ new Vue({
             .filter((file) => !/\.js$/.test(file.Key))
             // 格式化时间
             .map((file) => {
-              console.log(1, file);
               // 格式化时间
               file.LastModified = this.format(file.LastModified);
 
