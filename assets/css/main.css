@@ -194,6 +194,7 @@ h6 {
 }
 .mission-cover {
   height: 150px;
+  max-width: 320px;
   margin-bottom: 10px;
   border-radius: 8px;
   overflow: hidden;
