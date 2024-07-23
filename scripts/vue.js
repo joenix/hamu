@@ -232,13 +232,22 @@ new Vue({
             return console.error(`获取失败`, e);
           }
 
-          this.list = data.Contents.filter((file) => !/\.js$/.test(file.Key)).map((file) => {
+          this.list = data.Contents
+            // 过滤杂项
+            .filter((file) => !/\.js$/.test(file.Key))
             // 格式化时间
-            file.LastModified = this.format(file.LastModified);
+            .map((file) => {
+              console.log(1, file);
+              // 格式化时间
+              file.LastModified = this.format(file.LastModified);
 
-            // 原样返回
-            return file;
-          });
+              // 原样返回
+              return file;
+            })
+            // 时间倒叙
+            .sort((a, b) => {
+              return new Date(b.LastModified) - new Date(a.LastModified);
+            });
 
           this.batch = Array(this.list.length).fill(false);
 
