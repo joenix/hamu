@@ -184,6 +184,7 @@ h6 {
   height: 1.5rem;
   top: 10px;
   left: 10px;
+  z-index: 1;
   position: absolute;
   border-width: 2px;
   border-color: color-mix(in srgb, var(--accent-color), transparent 15%);

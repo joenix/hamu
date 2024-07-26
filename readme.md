@@ -50,6 +50,7 @@ ap-shanghai
 
 # 公众号 AppID
 wx5d458ff8b11233f0
+wx04fa36ea3e78fe63
 
 # 公众号 AppSecret
 d4b3ef98adbf73cf3d3faffcaab52b21

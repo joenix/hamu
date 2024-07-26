@@ -224,7 +224,7 @@ new Vue({
       window.cos.getBucket(
         this.coset({
           // 可选，指定要查询的目录路径
-          Prefix: ''
+          Prefix: 'media'
         }),
 
         (e, data) => {
