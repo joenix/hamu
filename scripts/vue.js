@@ -284,27 +284,29 @@ new Vue({
     // 生成带参数的二维码
     async createQRextension() {
       const { access_token } = await this.getAccessToken();
-      const { ticket, url } = await fetch(`https://wechat.hamuai.net/get-qrcode?access_token=${access_token}`);
+      const { ticket, url } = await fetch(`https://wechat.hamuai.net/get-ticket?access_token=${access_token}`);
 
-      const that = this;
+      this.qrImage = `https://mp.weixin.qq.com/cgi-bin/showqrcode?ticket=${ticket}`;
 
-      QRCode.toDataURL(
-        encodeURI(url),
-        {
-          errorCorrectionLevel: 'H',
-          type: 'image/jpeg',
-          quality: 0.3,
-          margin: 1,
-          color: {
-            dark: '#111111',
-            light: '#ffffff'
-          }
-        },
-        function (err, url) {
-          if (err) throw err;
-          that.qrImage = url;
-        }
-      );
+      // const that = this;
+
+      // QRCode.toDataURL(
+      //   encodeURI(url),
+      //   {
+      //     errorCorrectionLevel: 'H',
+      //     type: 'image/jpeg',
+      //     quality: 0.3,
+      //     margin: 1,
+      //     color: {
+      //       dark: '#111111',
+      //       light: '#ffffff'
+      //     }
+      //   },
+      //   function (err, url) {
+      //     if (err) throw err;
+      //     that.qrImage = url;
+      //   }
+      // );
     }
   },
 
