@@ -286,21 +286,23 @@ new Vue({
       const { access_token } = await this.getAccessToken();
       const { ticket, url } = await fetch(`https://wechat.hamuai.net/get-qrcode?access_token=${access_token}`);
 
+      const that = this;
+
       QRCode.toDataURL(
-        url,
+        encodeURI(url),
         {
           errorCorrectionLevel: 'H',
           type: 'image/jpeg',
           quality: 0.3,
           margin: 1,
           color: {
-            dark: '#010599FF',
-            light: '#FFBF60FF'
+            dark: '#111111',
+            light: '#ffffff'
           }
         },
         function (err, url) {
           if (err) throw err;
-          this.qrImage = url;
+          that.qrImage = url;
         }
       );
     }
