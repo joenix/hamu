@@ -285,6 +285,8 @@ new Vue({
     async createQRextension() {
       const { access_token } = await this.getAccessToken();
 
+      console.log(288, access_token);
+
       const a = await fetch(`https://wechat.hamuai.net/get-qrcode?access-token=${access_token}`);
 
       console.log('aaa', a);
