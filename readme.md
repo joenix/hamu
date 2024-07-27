@@ -48,6 +48,12 @@ ap-shanghai
 # Nginx Site
 /var/www/demo.hamuai.net
 
+# 服务号
+181754dth
+
+AppId: wx04fa36ea3e78fe63
+AppSecret: d05e9cd46d499b01f1c9ed0599ee204f
+
 # 公众号 AppID
 wx5d458ff8b11233f0
 wx04fa36ea3e78fe63

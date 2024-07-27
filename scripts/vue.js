@@ -19,13 +19,16 @@ new Vue({
     },
 
     preloader: true,
+    qrvisible: false,
+
     disable: false,
     file: null,
     list: [],
     batch: [],
     mode: false,
 
-    appid: `wx5d458ff8b11233f0`,
+    appid: `wx04fa36ea3e78fe63`,
+    secret: `d05e9cd46d499b01f1c9ed0599ee204f`,
     redirect: encodeURIComponent(`https://wechat.hamuai.net/callback`),
     state: `hamuai`,
 
@@ -55,6 +58,11 @@ new Vue({
     }
   },
   methods: {
+    // Get Access Token
+    async getAccessToken() {
+      return await fetch(`https://wechat.hamuai.net/get-access-token`);
+    },
+
     // 导航高亮
     navActive(nav) {
       console.log(nav, location.pathname);
@@ -74,12 +82,13 @@ new Vue({
     },
 
     // 工程初始化函数
-    init() {
+    async init() {
       // 移除 Preload 蒙版
       this.preloader = false;
 
       // 获取二维码
-      this.createQR();
+      // this.createQR();
+      await this.createQRextension();
 
       // 重置状态
       this.reset();
@@ -269,11 +278,26 @@ new Vue({
       // 配置
       this.qrImage = `https://api.qrserver.com/v1/create-qr-code/?data=${encodeURIComponent(qrcode)}`;
       console.log('qrImage:', this.qrImage);
+    },
+
+    // 生成带参数的二维码
+    async createQRextension() {
+      const { access_token } = await this.getAccessToken();
+
+      const a = await fetch(`https://api.weixin.qq.com/cgi-bin/qrcode/create?access_token=${access_token}`, {
+        method: `post`,
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ expire_seconds: 86400, action_name: 'QR_SCENE', action_info: { scene: { scene_id: `hamuai` } } })
+      });
+
+      console.log('aaa', a);
     }
   },
 
-  mounted() {
-    this.init();
+  async mounted() {
+    await this.init();
 
     // function downloadFileFromCOS(fileStream, filename) {
     //   // 创建一个 Blob 对象
