@@ -75,6 +75,7 @@ sudo lsof -i :7086
 kill -9
 
 # KOA
-start: pm2 start app.js --name hamuai-api
+start: pm2 start server/app.js --name hamuai-api
 stop: pm2 stop hamuai-api
+status: pm2 status
 ```
