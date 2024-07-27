@@ -60,8 +60,6 @@ new Vue({
   methods: {
     // Get Access Token
     async getAccessToken() {
-      // return await fetch(`https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=${this.appid}&secret=${this.secret}`);
-
       const response = await fetch(`https://wechat.hamuai.net/get-access-token`);
       return await response.json();
     },
@@ -287,13 +285,7 @@ new Vue({
     async createQRextension() {
       const { access_token } = await this.getAccessToken();
 
-      const a = await fetch(`https://api.weixin.qq.com/cgi-bin/qrcode/create?access_token=${access_token}`, {
-        method: `post`,
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ expire_seconds: 86400, action_name: 'QR_SCENE', action_info: { scene: { scene_id: `hamuai` } } })
-      });
+      const a = await fetch(`https://wechat.hamuai.net/get-qrcode?access-token=${access_token}`);
 
       console.log('aaa', a);
     }
