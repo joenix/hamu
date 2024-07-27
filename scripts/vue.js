@@ -286,6 +286,12 @@ new Vue({
       const { access_token } = await this.getAccessToken();
       const { ticket, url } = await fetch(`https://wechat.hamuai.net/get-qrcode?access_token=${access_token}`);
 
+      QRCode.toCanvas(document.getElementById('qrcode'), url, (error) => {
+        if (error) {
+          console.log('二维码生成失败，请刷新页面！');
+        }
+      });
+
       this.qrImage = url;
     }
   },
