@@ -287,7 +287,7 @@ new Vue({
 
       console.log(288, access_token);
 
-      const a = await fetch(`https://wechat.hamuai.net/get-qrcode?access-token=${encodeURIComponent(access_token)}&a=1`);
+      const a = await fetch(`https://wechat.hamuai.net/get-qrcode?access_token=${access_token}`);
 
       console.log('aaa', a);
     }
