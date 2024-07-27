@@ -60,7 +60,7 @@ new Vue({
   methods: {
     // Get Access Token
     async getAccessToken() {
-      return await fetch(`https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=${this.appid}&secret=${this.secret}`);
+      // return await fetch(`https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=${this.appid}&secret=${this.secret}`);
 
       const response = await fetch(`https://wechat.hamuai.net/get-access-token`);
       return await response.json();
