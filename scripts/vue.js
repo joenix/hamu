@@ -284,7 +284,7 @@ new Vue({
     // 生成带参数的二维码
     async createQRextension() {
       const { access_token } = await this.getAccessToken();
-      const { ticket, url } = await fetch(`https://wechat.hamuai.net/get-ticket?access_token=${access_token}`);
+      const { ticket, url } = await fetch(`https://wechat.hamuai.net/get-qrcode?access_token=${access_token}`);
 
       this.qrImage = `https://mp.weixin.qq.com/cgi-bin/showqrcode?ticket=${ticket}`;
 
